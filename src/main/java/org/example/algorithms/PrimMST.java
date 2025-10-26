@@ -1,7 +1,6 @@
 package org.example.algorithms;
 
 import java.util.*;
-import java.util.Queue;
 
 import org.example.graph.*;
 import org.example.util.*;
@@ -41,6 +40,7 @@ public class PrimMST {
             int w = e.other(v);
             operationsCount++;
             if (marked[w]) continue;
+            operationsCount++;
             if (e.weight() < distTo[w]) {
                 distTo[w] = e.weight();
                 edgeTo[w] = e;
@@ -55,7 +55,7 @@ public class PrimMST {
     }
 
     public Iterable<Edge> edges() {
-        Queue<Edge> mst = new LinkedList<>();
+        List<Edge> mst = new LinkedList<>();
         for (int v = 0; v < edgeTo.length; v++) {
             Edge e = edgeTo[v];
             if (e != null) mst.add(e);

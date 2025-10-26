@@ -2,11 +2,10 @@ package org.example.algorithms;
 
 import org.example.graph.*;
 import java.util.*;
-import java.util.Queue;
 
 public class KruskalMST {
     private double weight;
-    private Queue<Edge> mst = new LinkedList<>();
+    private final List<Edge> mst = new ArrayList<>();
     private int operationsCount = 0;
 
     public KruskalMST(EdgeWeightedGraph G) {
@@ -22,10 +21,14 @@ public class KruskalMST {
             Edge e = edges[i];
             int v = e.either();
             int w = e.other(v);
-            operationsCount++;
 
-            if (dsu.find(v) != dsu.find(w)) {
-                dsu.union(v, w);
+            operationsCount += 2;
+            int rootV = dsu.find(v);
+            int rootW = dsu.find(w);
+
+            operationsCount++;
+            if (rootV != rootW) {
+                dsu.union(rootV, rootW);
                 operationsCount++;
                 mst.add(e);
                 weight += e.weight();
